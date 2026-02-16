@@ -103,6 +103,12 @@ export async function sendMessage(chat, message) {
         if (error.message.includes('404')) {
             return `Error: Model not found (404). This usually means the model '${chat.model}' is not available for your API key or Region. Please try selecting a different model.`;
         }
+
+        // Mock Mode Fallback for Invalid Key or Quota Limits
+        if (error.message.includes('API_KEY_INVALID') || error.message.includes('400') || error.message.includes('429')) {
+            return `[Mock Mode] ⚠️ API Key Error or Quota Exceeded.\n\nSince a valid Gemini API key was not detected, I am running in **Mock Mode**.\n\n🤖 **AnveshakAI**: Hello! I see you're testing the CLI. In a real scenario, this would be a response from Google Gemini. \n\nTo fix this: \n1. Get a key from https://aistudio.google.com/apikey\n2. Run 'rm -rf ~/Library/Preferences/anveshak-ai-nodejs/'\n3. Restart 'npm start'`;
+        }
+
         return `Error: ${error.message}`;
     }
 }
