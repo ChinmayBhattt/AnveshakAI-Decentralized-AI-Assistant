@@ -355,40 +355,81 @@ const Documentation = ({ onBack }) => {
                             </div>
                         </section>
 
-                        {/* 6. Installation */}
+                        {/* 6. CLI Guide (Replaces/Augments Installation) */}
                         <section id="installation" className={`scroll-mt-24 border-t ${styles.border} pt-12`}>
-                            <h2 className={`text-3xl font-bold ${styles.heading} mb-6`}>Installation & Setup</h2>
-                            <p className={`${styles.textSecondary} mb-8`}>Get AnveshakAI running locally in under 5 minutes.</p>
+                            <h2 className={`text-3xl font-bold ${styles.heading} mb-6`}>CLI Installation & Usage Guide</h2>
+                            <p className={`${styles.textSecondary} mb-8`}>
+                                AnveshakAI provides a powerful terminal-based interface for developers who prefer command-line interactions.
+                            </p>
 
-                            <div className="space-y-6">
+                            <div className="space-y-8">
+                                {/* Prerequisites */}
                                 <div>
-                                    <h3 className={`text-lg font-semibold ${styles.heading} mb-3`}>1. Clone Repository</h3>
-                                    <div className={`${styles.codeBg} rounded-md border ${styles.border} p-4 font-mono text-sm overflow-x-auto`}>
-                                        <p className="text-gray-300 whitespace-pre"><span className="text-purple-400">git</span> clone https://github.com/ChinmayBhattt/AnveshakAI-Decentralized-AI-Assistant.git</p>
-                                        <p className="text-gray-300 whitespace-pre"><span className="text-purple-400">cd</span> AnveshakAI-Decentralized-AI-Assistant</p>
+                                    <h3 className={`text-xl font-semibold ${styles.heading} mb-3 flex items-center gap-2`}>
+                                        <span className="text-[#22d3ee]">01.</span> Prerequisites
+                                    </h3>
+                                    <ul className={`list-disc pl-5 ${styles.textSecondary} space-y-2`}>
+                                        <li><strong>Node.js</strong> (v18 or higher) installed.</li>
+                                        <li><strong>npm</strong> (Node Package Manager).</li>
+                                        <li>A valid <strong>Google Gemini API Key</strong>.</li>
+                                    </ul>
+                                </div>
+
+                                {/* Installation */}
+                                <div>
+                                    <h3 className={`text-xl font-semibold ${styles.heading} mb-3 flex items-center gap-2`}>
+                                        <span className="text-[#22d3ee]">02.</span> Installation
+                                    </h3>
+                                    <div className={`${styles.codeBg} rounded-xl border ${styles.border} p-6 font-mono text-sm overflow-x-auto shadow-sm`}>
+                                        <div className="flex gap-2 mb-2">
+                                            <span className="text-gray-500"># 1. Clone the repository</span>
+                                        </div>
+                                        <p className="text-gray-300 mb-4">
+                                            <span className="text-purple-400">git</span> clone https://github.com/ChinmayBhattt/AnveshakAI-Decentralized-AI-Assistant.git
+                                        </p>
+
+                                        <div className="flex gap-2 mb-2">
+                                            <span className="text-gray-500"># 2. Navigate to the CLI directory</span>
+                                        </div>
+                                        <p className="text-gray-300 mb-4">
+                                            <span className="text-purple-400">cd</span> AnveshakAI-Decentralized-AI-Assistant/cli
+                                        </p>
+
+                                        <div className="flex gap-2 mb-2">
+                                            <span className="text-gray-500"># 3. Install dependencies</span>
+                                        </div>
+                                        <p className="text-gray-300">
+                                            <span className="text-yellow-400">npm</span> install
+                                        </p>
                                     </div>
                                 </div>
 
+                                {/* Usage */}
                                 <div>
-                                    <h3 className={`text-lg font-semibold ${styles.heading} mb-3`}>2. Install Dependencies</h3>
-                                    <div className={`${styles.codeBg} rounded-md border ${styles.border} p-4 font-mono text-sm overflow-x-auto`}>
-                                        <p className="text-gray-500 mb-2"># Required for canister compilation</p>
-                                        <p className="text-gray-300 whitespace-pre"><span className="text-yellow-400">cargo</span> install candid-extractor</p>
-                                    </div>
-                                </div>
+                                    <h3 className={`text-xl font-semibold ${styles.heading} mb-3 flex items-center gap-2`}>
+                                        <span className="text-[#22d3ee]">03.</span> Usage
+                                    </h3>
+                                    <div className={`${styles.codeBg} rounded-xl border ${styles.border} p-6 font-mono text-sm overflow-x-auto shadow-sm`}>
+                                        <div className="flex gap-2 mb-2">
+                                            <span className="text-gray-500"># Start the CLI</span>
+                                        </div>
+                                        <p className="text-gray-300 mb-6">
+                                            <span className="text-green-400">npm</span> start
+                                        </p>
 
-                                <div>
-                                    <h3 className={`text-lg font-semibold ${styles.heading} mb-3`}>3. Deploy</h3>
-                                    <div className={`${styles.codeBg} rounded-md border ${styles.border} p-4 font-mono text-sm overflow-x-auto`}>
-                                        <p className="text-gray-300 whitespace-pre"><span className="text-green-400">dfx</span> start --background</p>
-                                        <p className="text-gray-300 whitespace-pre"><span className="text-green-400">dfx</span> deploy</p>
+                                        <div className="flex gap-2 mb-2">
+                                            <span className="text-gray-500"># Supported Commands</span>
+                                        </div>
+                                        <ul className="text-gray-400 space-y-1">
+                                            <li>• Interact normally to chat with the AI.</li>
+                                            <li>• Type <span className="text-red-400">'exit'</span> or <span className="text-red-400">'quit'</span> to close the session.</li>
+                                        </ul>
                                     </div>
-                                </div>
 
-                                <div>
-                                    <h3 className={`text-lg font-semibold ${styles.heading} mb-3`}>4. Configure API Key</h3>
-                                    <div className={`${styles.codeBg} rounded-md border ${styles.border} p-4 font-mono text-sm overflow-x-auto`}>
-                                        <p className="text-gray-300 whitespace-pre"><span className="text-green-400">dfx</span> canister call backend set_api_key '("YOUR_KEY")'</p>
+                                    <div className={`mt-6 p-4 rounded-lg border-l-4 border-yellow-500 ${isDark ? 'bg-yellow-500/10' : 'bg-yellow-50'}`}>
+                                        <p className={`text-sm ${styles.textSecondary}`}>
+                                            <strong>Note:</strong> On first run, you will be prompted to enter your <strong>Gemini API Key</strong>. This is stored securely on your local machine.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -507,6 +548,124 @@ const Documentation = ({ onBack }) => {
                     </div>
                 </aside>
 
+            </div>
+        </div>
+    );
+};
+
+// ... (keeping existing imports)
+
+const TerminalDemo = () => {
+    const [lines, setLines] = useState([
+        { type: 'command', text: 'git clone https://github.com/ChinmayBhattt/AnveshakAI.git', prompt: '~' },
+    ]);
+    const [currentStep, setCurrentStep] = useState(0);
+
+    useEffect(() => {
+        const steps = [
+            {
+                delay: 1000,
+                action: () => setLines(prev => [...prev, { type: 'output', text: 'Cloning into \'AnveshakAI-Decentralized-AI-Assistant\'...', color: 'text-gray-400' }])
+            },
+            {
+                delay: 800,
+                action: () => setLines(prev => [...prev, { type: 'output', text: 'remote: Enumerating objects: 142, done.', color: 'text-gray-400' }])
+            },
+            {
+                delay: 800,
+                action: () => setLines(prev => [...prev, { type: 'output', text: 'remote: Total 142 (delta 35), reused 112 (delta 22)', color: 'text-gray-400' }])
+            },
+            {
+                delay: 500,
+                action: () => setLines(prev => [...prev, { type: 'command', text: 'cd AnveshakAI-Decentralized-AI-Assistant/cli', prompt: '~' }])
+            },
+            {
+                delay: 800,
+                action: () => setLines(prev => [...prev, { type: 'command', text: 'npm install', prompt: '~/AnveshakAI/cli' }])
+            },
+            {
+                delay: 1000,
+                action: () => setLines(prev => [...prev, { type: 'output', text: 'added 245 packages in 3s', color: 'text-green-400' }])
+            },
+            {
+                delay: 500,
+                action: () => setLines(prev => [...prev, { type: 'command', text: 'npm start', prompt: '~/AnveshakAI/cli' }])
+            },
+            {
+                delay: 1000,
+                action: () => setLines(prev => [...prev, {
+                    type: 'output',
+                    html: `
+     _                                   _   
+    / \\     _ __   __   __   ___   ___  | |__  
+   / _ \\   | '_ \\  \\ \\ / /  / _ \\ / __| | '_ \\ 
+  / ___ \\  | | | |  \\ V /  |  __/ \\__ \\ | | | |
+ /_/   \\_\\ |_| |_|   \\_/    \\___| |___/ |_| |_|
+                                               
+   Welcome to AnveshakAI - CLI Edition
+   • Terminal-based interaction
+   • Secure API Key Management
+                    `,
+                    color: 'text-cyan-400'
+                }])
+            },
+            {
+                delay: 500,
+                action: () => setLines(prev => [...prev, { type: 'output', text: '? Select a Gemini Model: gemini-3.0-flash', color: 'text-white' }])
+            }
+        ];
+
+        let timeoutId;
+
+        const runStep = (index) => {
+            if (index >= steps.length) return;
+            timeoutId = setTimeout(() => {
+                steps[index].action();
+                runStep(index + 1);
+            }, steps[index].delay);
+        };
+
+        runStep(0);
+
+        return () => clearTimeout(timeoutId);
+    }, []);
+
+    return (
+        <div className="w-full rounded-xl overflow-hidden shadow-2xl bg-[#0d1117] border border-gray-800 font-mono text-sm my-8 transform hover:scale-[1.01] transition-transform duration-300">
+            {/* Terminal Header */}
+            <div className="bg-[#161b22] px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                </div>
+                <div className="flex-1 text-center text-gray-500 text-xs">chinmay@mac: ~/AnveshakAI</div>
+            </div>
+
+            {/* Terminal Body */}
+            <div className="p-6 text-gray-300 space-y-2 min-h-[400px] max-h-[500px] overflow-y-auto custom-scrollbar">
+                {lines.map((line, i) => (
+                    <div key={i} className="animate-fadeIn">
+                        {line.type === 'command' ? (
+                            <div className="flex gap-2">
+                                <span className="text-green-400 font-bold">➜</span>
+                                <span className="text-blue-400 font-bold">{line.prompt}</span>
+                                <span className="text-gray-100">{line.text}</span>
+                            </div>
+                        ) : (
+                            <div className={`${line.color || 'text-gray-400'} whitespace-pre-wrap font-mono`}>
+                                {line.html ? <pre className="font-mono leading-none">{line.html}</pre> : line.text}
+                            </div>
+                        )}
+                    </div>
+                ))}
+
+                {/* Typing Cursor */}
+                <div className="flex gap-2 items-center">
+                    <span className="text-green-400 font-bold">➜</span>
+                    <span className="text-blue-400 font-bold">~/AnveshakAI/cli</span>
+                    <span className="w-2.5 h-5 bg-gray-500 animate-pulse"></span>
+                </div>
             </div>
         </div>
     );

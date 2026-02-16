@@ -14,7 +14,8 @@ const WelcomePage = ({
   onShowPrivacy,
   onShowTerms,
   onShowContact,
-  onShowApiReference
+  onShowApiReference,
+  onShowCliGuide
 }) => {
   return (
     <div className="min-h-screen bg-white">
@@ -36,6 +37,7 @@ const WelcomePage = ({
         onShowTerms={onShowTerms}
         onShowContact={onShowContact}
         onShowApiReference={onShowApiReference}
+        onShowCliGuide={onShowCliGuide}
       />
     </div>
   );

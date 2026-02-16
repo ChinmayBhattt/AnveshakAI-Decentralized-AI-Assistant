@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = ({ onShowDocumentation, onShowPrivacy, onShowTerms, onShowContact, onShowApiReference }) => {
+const Footer = ({ onShowDocumentation, onShowPrivacy, onShowTerms, onShowContact, onShowApiReference, onShowCliGuide }) => {
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,7 +59,7 @@ const Footer = ({ onShowDocumentation, onShowPrivacy, onShowTerms, onShowContact
             <ul className="space-y-2">
               <li><button onClick={() => { console.log('Footer: Documentation clicked'); if (onShowDocumentation) onShowDocumentation(); else console.error('Footer: onShowDocumentation prop is missing'); }} className="text-gray-400 hover:text-white transition-colors text-left">Documentation</button></li>
               <li><button onClick={onShowApiReference} className="text-gray-400 hover:text-white transition-colors text-left w-full">API Reference</button></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Tutorials</a></li>
+              <li><button onClick={onShowCliGuide} className="text-gray-400 hover:text-white transition-colors text-left w-full">CLI Guide</button></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Community</a></li>
             </ul>
           </div>

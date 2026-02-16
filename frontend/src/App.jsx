@@ -7,6 +7,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import ContactUs from './components/ContactUs';
 import ApiReference from './components/ApiReference';
+import CliGuide from './components/CliGuide';
 
 const App = () => {
   // View state
@@ -99,6 +100,10 @@ const App = () => {
     setCurrentView('api-reference');
   };
 
+  const handleShowCliGuide = () => {
+    setCurrentView('cli-guide');
+  };
+
   const handleBackToWelcome = () => {
     setCurrentView('welcome');
   };
@@ -116,6 +121,7 @@ const App = () => {
         onShowTerms={handleShowTerms}
         onShowContact={handleShowContact}
         onShowApiReference={handleShowApiReference}
+        onShowCliGuide={handleShowCliGuide}
       />
     );
   }
@@ -143,6 +149,12 @@ const App = () => {
   if (currentView === 'api-reference') {
     return (
       <ApiReference onBack={handleBackToWelcome} />
+    );
+  }
+
+  if (currentView === 'cli-guide') {
+    return (
+      <CliGuide onBack={handleBackToWelcome} />
     );
   }
 
