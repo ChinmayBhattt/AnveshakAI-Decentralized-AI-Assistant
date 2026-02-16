@@ -10,7 +10,15 @@ marked.setOptions({
 });
 
 export async function selectModel(geminiService) {
-    const models = await geminiService.listModels();
+    const spinner = ora('Fetching available models...').start();
+    let models = [];
+    try {
+        models = await geminiService.listModels();
+        spinner.succeed('Models fetched.');
+    } catch (error) {
+        spinner.warn('Could not fetch models dynamically. Using default list.');
+        models = ["gemini-1.5-flash", "gemini-pro"];
+    }
 
     const answer = await inquirer.prompt([
         {
@@ -21,18 +29,29 @@ export async function selectModel(geminiService) {
         }
     ]);
 
-    geminiService.setModel(answer.model);
     console.log(chalk.green(`\nSelected Model: ${chalk.bold(answer.model)}\n`));
+    return answer.model;
 }
 
-export async function startChatLoop(geminiService) {
-    await geminiService.startChat();
+export async function startChatLoop(geminiService, modelName) {
+
+    const spinnerStart = ora('Initializing Chat...').start();
+    let chatSession;
+    try {
+        chatSession = await geminiService.startChat(modelName);
+        spinnerStart.succeed(chalk.green('Chat Initialized!'));
+    } catch (error) {
+        spinnerStart.fail(chalk.red('Failed to initialize chat.'));
+        console.error(chalk.red(error.message));
+        return;
+    }
 
     console.log(chalk.dim('--------------------------------------------------'));
     console.log(chalk.dim('Type "exit" or "quit" to end the session.'));
     console.log(chalk.dim('--------------------------------------------------\n'));
 
     while (true) {
+        // Main Loop
         const answer = await inquirer.prompt([
             {
                 type: 'input',
@@ -53,7 +72,8 @@ export async function startChatLoop(geminiService) {
         const spinner = ora('AnveshakAI is thinking...').start();
 
         try {
-            const response = await geminiService.sendMessage(input);
+            // Pass the chat session object to sendMessage
+            const response = await geminiService.sendMessage(chatSession, input);
             spinner.stop();
 
             console.log(chalk.magenta('AnveshakAI >'));

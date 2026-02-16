@@ -11,7 +11,7 @@
     "start": "node bin/index.js"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.2.1",
+    "@google/generative-ai": "^0.24.1",
     "boxen": "^5.1.2",
     "chalk": "^4.1.2",
     "conf": "^10.2.0",

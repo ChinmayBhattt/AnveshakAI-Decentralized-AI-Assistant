@@ -8,19 +8,9 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const config = new Conf({ projectName: 'anveshak-cli' });
 
 export async function getApiKey() {
-    let apiKey = config.get('GEMINI_API_KEY');
-
-    if (apiKey) {
-        // Validate existing key silently
-        const result = await validateApiKey(apiKey);
-        if (result === true) {
-            return apiKey;
-        } else {
-            console.log(chalk.red('\nSaved API Key is invalid or expired.'));
-            console.log(chalk.yellow(`Error Details: ${result}\n`));
-            config.delete('GEMINI_API_KEY');
-        }
-    }
+    // User requested to ALWAYS ask for the API key first.
+    // We clear the saved key to force the prompt.
+    config.delete('GEMINI_API_KEY');
 
     // Ask for new key
     const answer = await inquirer.prompt([
@@ -36,30 +26,41 @@ export async function getApiKey() {
         }
     ]);
 
-    const spinner = ora('Validating API Key...').start();
-    const result = await validateApiKey(answer.apiKey);
+    const spinner = ora('Verifying API Key...').start();
 
-    if (result === true) {
+    // Soft validation
+    const checkResult = await validateApiKey(answer.apiKey);
+
+    if (checkResult === true) {
         spinner.succeed(chalk.green('API Key verified successfully!'));
-        config.set('GEMINI_API_KEY', answer.apiKey);
-        return answer.apiKey;
     } else {
-        spinner.fail(chalk.red('Invalid API Key or Connection Error.'));
-        console.error(chalk.yellow(`\nError Details: ${result}\n`)); // Show the error
-        return getApiKey(); // Retry recursively
+        spinner.warn(chalk.yellow('Warning: Could not verify key with standard models.'));
+        console.log(chalk.dim(`Details: ${checkResult}`));
+        console.log(chalk.green('Proceeding anyway...'));
     }
+
+    config.set('GEMINI_API_KEY', answer.apiKey);
+    return answer.apiKey;
 }
 
 async function validateApiKey(key) {
-    try {
-        const cleanKey = key.trim();
-        const genAI = new GoogleGenerativeAI(cleanKey);
-        // Use gemini-1.5-flash for validation as it's lightweight and widely available
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        // Minimal test request
-        await model.generateContent("Test");
-        return true;
-    } catch (error) {
-        return error.message; // Return the specific error message
+    const cleanKey = key.trim();
+    if (!cleanKey) return "API Key cannot be empty";
+
+    const genAI = new GoogleGenerativeAI(cleanKey);
+    // Use the model explicitly used in the backend (lib.rs)
+    const modelsToTry = ["gemini-2.5-flash"];
+
+    for (const modelName of modelsToTry) {
+        try {
+            const model = genAI.getGenerativeModel({ model: modelName });
+            await model.generateContent("Hi");
+            return true;
+        } catch (error) {
+            if (error.message && (error.message.includes('API key not valid') || error.message.includes('API_KEY_INVALID'))) {
+                return "API_KEY_INVALID";
+            }
+        }
     }
+    return "Connection/Model Error (404)";
 }

@@ -15,7 +15,7 @@ export function showWelcome() {
 
     // Welcome Message in Box
     const welcomeMessage = chalk.bold('Welcome to AnveshakAI - CLI Edition\n') +
-        chalk.green('A Decentralized AI Assistant powered by Gemini\n\n') +
+        chalk.green('A Decentralized AI Assistant powered by Hackers Unity\n\n') +
         chalk.yellow('Features:\n') +
         '• Terminal-based interaction\n' +
         '• Secure API Key Management\n' +
