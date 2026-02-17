@@ -168,6 +168,12 @@ const CopyCommand = ({ command, label }) => {
 // ─── Main CLI Guide Page ─────────────────────────────────────────────────
 const CliGuide = ({ onBack }) => {
     const [scrollY, setScrollY] = useState(0);
+    const [activeTab, setActiveTab] = useState('one-liner');
+
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text);
+        // Could add toast notification here
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -293,15 +299,78 @@ const CliGuide = ({ onBack }) => {
                     </div>
 
                     {/* Copy Commands */}
-                    <div className="grid grid-cols-1 gap-3 max-w-3xl mx-auto">
-                        <CopyCommand
-                            command="curl -fsSL https://anveshak-ai.vercel.app/install.sh | bash"
-                            label="curl -fsSL https://anveshak-ai.vercel.app/install.sh | bash"
-                        />
+                    {/* ── Install Tabs Component ────────────────────────────────── */}
+                    <div className="max-w-4xl mx-auto mb-12">
+                        <div className="bg-[#0e0e14] border border-gray-800/60 rounded-2xl overflow-hidden shadow-2xl">
+                            {/* Tab Header */}
+                            <div className="flex flex-col md:flex-row items-center justify-between px-4 py-3 border-b border-gray-800/60 bg-[#0a0a0f] gap-4">
+                                <div className="flex items-center gap-6 w-full md:w-auto overflow-x-auto">
+                                    <div className="flex gap-2 shrink-0">
+                                        <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                                        <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                                        <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                                    </div>
+
+                                    <div className="flex items-center gap-1 bg-[#12121a] p-1 rounded-lg border border-gray-800/60">
+                                        <button
+                                            onClick={() => setActiveTab('one-liner')}
+                                            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${activeTab === 'one-liner' ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(6,182,212,0.5)]' : 'text-gray-400 hover:text-white'}`}
+                                        >
+                                            One-liner
+                                        </button>
+                                        <button
+                                            onClick={() => setActiveTab('npm')}
+                                            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${activeTab === 'npm' ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(6,182,212,0.5)]' : 'text-gray-400 hover:text-white'}`}
+                                        >
+                                            npm
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-4 text-xs font-mono shrink-0">
+                                    <span className="text-gray-500">macOS/Linux <span className="text-red-400 cursor-pointer hover:underline">change</span></span>
+                                    <span className="px-2 py-1 rounded bg-[#1c1c24] border border-gray-800 text-gray-400">β BETA</span>
+                                </div>
+                            </div>
+
+                            {/* Tab Content */}
+                            <div className="p-6 md:p-8 bg-[#0a0a0f] relative group">
+                                <div className="font-mono text-sm md:text-base">
+                                    <div className="text-gray-500 mb-4 select-none">
+                                        # {activeTab === 'one-liner' ? 'Works everywhere. Installs everything. You\'re welcome. 🦞' : 'Install globally via NPM. Requires Node.js. 📦'}
+                                    </div>
+                                    <div className="flex items-center justify-between gap-4">
+                                        <div className="flex items-center gap-3 text-gray-300 overflow-x-auto whitespace-nowrap pb-2 md:pb-0 scrollbar-hide">
+                                            <span className="text-red-400">$</span>
+                                            <span className="text-cyan-400">
+                                                {activeTab === 'one-liner' ? 'curl' : 'npm'}
+                                            </span>
+                                            <span>
+                                                {activeTab === 'one-liner' ? '-fsSL https://anveshak-ai.vercel.app/install.sh | bash' : 'install -g anveshakai'}
+                                            </span>
+                                        </div>
+                                        <button
+                                            onClick={() => copyToClipboard(activeTab === 'one-liner' ? 'curl -fsSL https://anveshak-ai.vercel.app/install.sh | bash' : 'npm install -g anveshakai')}
+                                            className="p-2 rounded-lg bg-[#1c1c24] border border-gray-800 hover:border-cyan-500/50 hover:bg-[#252530] transition-all text-gray-400 hover:text-cyan-400 shrink-0"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p className="text-center text-gray-500 text-sm mt-6 font-mono">
+                            Works on macOS, Windows & Linux. {activeTab === 'one-liner' ? 'The one-liner installs Node.js and everything else for you.' : 'Requires existing Node.js installation.'}
+                        </p>
                     </div>
 
                     <p className="text-center text-gray-500 text-sm mt-4">
                         Works on macOS, Windows & Linux. Requires Node.js v18+.
+                        <br />
+                        <span className="text-xs opacity-50">Note: For NPM install, the package must be published to the registry.</span>
                     </p>
                 </div>
             </section>

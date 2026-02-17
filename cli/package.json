@@ -1,11 +1,12 @@
 {
-  "name": "anveshak-cli",
+  "name": "anveshakai",
   "version": "1.0.0",
-  "description": "AnveshakAI CLI Tool",
+  "description": "AnveshakAI CLI Tool - Decentralized AI Assistant",
   "main": "bin/index.js",
   "type": "module",
   "bin": {
-    "anveshak": "./bin/index.js"
+    "anveshak": "./bin/index.js",
+    "anveshakai": "./bin/index.js"
   },
   "scripts": {
     "start": "node bin/index.js"
