@@ -337,7 +337,7 @@ const CliGuide = ({ onBack }) => {
                             <div className="p-6 md:p-8 bg-[#0a0a0f] relative group">
                                 <div className="font-mono text-sm md:text-base">
                                     <div className="text-gray-500 mb-4 select-none">
-                                        # {activeTab === 'one-liner' ? 'Works everywhere. Installs everything. You\'re welcome. 🦞' : 'Install globally via NPM. Requires Node.js. 📦'}
+                                        # {activeTab === 'one-liner' ? 'Works everywhere. Installs everything. You\'re welcome.' : 'Install globally via NPM. Requires Node.js. 📦'}
                                     </div>
                                     <div className="flex items-center justify-between gap-4">
                                         <div className="flex items-center gap-3 text-gray-300 overflow-x-auto whitespace-nowrap pb-2 md:pb-0 scrollbar-hide">
